@@ -9,7 +9,7 @@ class ProductSuppliersController extends Controller
 {
     public function prodSupply(){
 
-        $prodSupp = ProductSuppliers::with('products');
+        $prodSupp = ProductSuppliers::with('products')->get();
 
         return view('products.prodSupplyView', compact('prodSupp'));
     }

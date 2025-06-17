@@ -13,9 +13,9 @@ class ProductSuppliers extends Model
         'category_id'
      ];
 
-     public function product()
+     public function products()
     {
-        return $this->belongsTo(ProductSuppliers::class);
+        return $this->hasMany(Products::class, 'product_suppliers_id');
     }
     public function category()
     {
