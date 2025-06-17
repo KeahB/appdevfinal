@@ -12,9 +12,9 @@ class ProductCategory extends Model
         'slug'
     ];
 
-    public function product()
+    public function products()
     {
-        return $this->belongsTo(Products::class);
+        return $this->hasMany(Products::class, 'product_categories_id');
     }
     public function category()
     {
