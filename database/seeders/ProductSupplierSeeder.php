@@ -12,7 +12,7 @@ class ProductSupplierSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {
+    {   
         ProductSuppliers::insert([
             ['name' => 'Supplier A', 'email' => 'supplierA@example.com', 'phone' => '1234567890', 'category_id' => 1],
             ['name' => 'Supplier B', 'email' => 'supplierB@example.com', 'phone' => '0987654321', 'category_id' => 2],

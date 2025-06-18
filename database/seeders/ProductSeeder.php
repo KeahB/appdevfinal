@@ -13,7 +13,7 @@ class ProductSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {
+    {         
         Products::insert([
             ['name' => 'Laptop', 'slug' => Str::slug("Laptop"), 'price' => 1000, 'quantity' => 50, 'product_categories_id' => 1, 'product_suppliers_id' => 1, 'image' => 'laptop.jpg'],
             ['name' => 'Sofa', 'slug' => Str::slug("Sofa"), 'price' => 500, 'quantity' => 20, 'product_categories_id' => 2, 'product_suppliers_id' => 2, 'image' => 'sofa.jpg'],
