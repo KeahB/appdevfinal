@@ -5,7 +5,7 @@
     <title>Login</title>
     @vite('resources/css/app.css')
 </head>
-<body class="bg-base-200">
+<body class="bg-white">
 
 <section class="min-h-screen flex items-center justify-center px-4">
     <div class="card w-full max-w-sm bg-base-100 shadow-xl">

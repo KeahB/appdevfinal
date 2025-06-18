@@ -29,7 +29,7 @@
             </div>
             <!-- Title -->
             <div class="flex-1">
-                <span class="text-xl font-semibold">@yield('title', 'Dashboard')</span>
+                <span class="text-xl font-semibold">@yield('title', '')</span>
             </div>
             <!-- Right icons -->
             <div class="flex-none gap-2">
@@ -66,57 +66,22 @@
         <aside class="w-64 bg-base-100 text-base-content shadow-lg min-h-screen flex flex-col">
             <!-- Branding -->
             <div class="p-4 border-b border-gray-200">
-                <a href="{{ route('home.index') }}" class="text-2xl font-bold">📦 Inventory</a>
+                <a href="{{ route('home.index') }}" class="text-2xl font-bold">User Panel</a>
             </div>
 
             <!-- Menu -->
             <ul class="menu p-4 flex-1 overflow-y-auto">
-                <li class="menu-title">Stocks Management</li>
+            
+                
                 <li>
-                    <a href="{{ route('product-categories.category') }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
-                             viewBox="0 0 24 24">
-                            <path d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                        Product Categories
-                    </a>
+                     <a href="" class="block px-4 py-2 rounded hover:bg-gray-200">
+                🛍 Products
+                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('prodSupply.supp') }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
-                             viewBox="0 0 24 24">
-                            <path d="M20 13V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6m16 0l-8 8-8-8" />
-                        </svg>
-                        Product Suppliers
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="flex justify-between items-center">
-                        <span>
-                            🛒 Products
-                        </span>
-                        
-                    </a>
-                </li>
-                <li>
-                    <a class="flex justify-between items-center">
-                        <span>📦 Orders</span>
-                        
-                    </a>
-                </li>
-
-                <li class="menu-title">Users Management</li>
-                <li>
-                    <a class="flex justify-between items-center">
-                        <span>👥 Roles</span>
-                        <span class="badge badge-sm">3</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="flex justify-between items-center">
-                        <span>👤 Users</span>
-                        <span class="badge badge-sm">3</span>
-                    </a>
+                    <a href="" class="block px-4 py-2 rounded hover:bg-gray-200">
+                📦 View Orders
+                      </a>
                 </li>
             </ul>
         </aside>

@@ -20,7 +20,8 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate(); // prevent session fixation
-            return redirect()->route('dashboard'); // redirect to home or a specific route
+
+            return $this->authenticated($request, Auth::user());
         }
 
         return back()->withErrors([
@@ -28,16 +29,23 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        } else {
+            return redirect()->route('user.products');
+        }
+    }
+
     public function logout(Request $request)
     {
-    Auth::logout(); // Log out the user
+        Auth::logout(); // Log out the user
 
-  
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-    $request->session()->flush(); 
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        $request->session()->flush(); 
 
-    return redirect('login'); 
+        return redirect('login'); 
     }
 }
-
