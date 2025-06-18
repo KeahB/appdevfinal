@@ -5,9 +5,9 @@
 @section('content')
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-bold">Products</h1>
-        <a href="#" class="btn btn-primary">New Product</a>
+        <a href="#add_product_modal" class="btn btn-primary">Add New Product</a>
     </div>
-
+            
     <div class="overflow-x-auto bg-white shadow rounded-lg">
         <table class="table w-full">
             <thead class="bg-gray-100">

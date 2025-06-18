@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Dashboard')</title>
     @vite('resources/css/app.css')
+
+    
 </head>
 <body class="min-h-screen bg-gray-100">
 
@@ -114,6 +116,82 @@
             </ul>
         </aside>
     </div>
+</div>
+{{--     
+    this is the modal for adding new products --}}
+        <!-- Button to open the modal -->
+
+
+<!-- Modal -->
+<div class="modal" role="dialog" id="add_product_modal">
+  <div class="modal-box w-11/12 max-w-2xl">
+    <h3 class="font-bold text-lg mb-4">Add New Product</h3>
+
+    <form method="POST" action="" enctype="multipart/form-data">
+      @csrf
+
+      <!-- Product Name -->
+      <div class="form-control mb-3">
+        <label class="label">
+          <span class="label-text font-semibold">Product Name</span>
+        </label>
+        <input type="text" name="name" class="input input-bordered" required>
+      </div>
+
+      <!-- Price -->
+      <div class="form-control mb-3">
+        <label class="label">
+          <span class="label-text font-semibold">Price</span>
+        </label>
+        <input type="number" step="0.01" name="price" class="input input-bordered" required>
+      </div>
+
+      <!-- Quantity -->
+      <div class="form-control mb-3">
+        <label class="label">
+          <span class="label-text font-semibold">Quantity</span>
+        </label>
+        <input type="number" name="quantity" class="input input-bordered" required>
+      </div>
+
+      <!-- Category -->
+      <div class="form-control mb-3">
+        <label class="label">
+          <span class="label-text font-semibold">Category</span>
+        </label>
+        <select name="product_categories_id" class="select select-bordered" required>
+          {{-- @foreach ($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->title }}</option>
+          @endforeach --}}
+        </select>
+      </div>
+
+      <!-- Supplier -->
+      <div class="form-control mb-3">
+        <label class="label">
+          <span class="label-text font-semibold">Supplier</span>
+        </label>
+        <select name="product_suppliers_id" class="select select-bordered" required>
+          {{-- @foreach ($suppliers as $supplier)
+            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+          @endforeach --}}
+        </select>
+      </div>
+
+      <!-- Image -->
+      <div class="form-control mb-4">
+        <label class="label">
+          <span class="label-text font-semibold">Product Image</span>
+        </label>
+        <input type="file" name="image" class="file-input file-input-bordered w-full" accept="image/*">
+      </div>
+
+      <div class="modal-action">
+        <a href="#" class="btn">Cancel</a>
+        <button type="submit" class="btn btn-primary">Save Product</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 </body>
