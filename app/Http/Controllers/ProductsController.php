@@ -22,7 +22,7 @@ class ProductsController extends Controller
     public function prod()
     {
         $products = Products::all(); // add `with()` if you need related models
-        return view('products.productView', compact('products'));
+        return view('products.index', compact('products'));
     }
 
 }
