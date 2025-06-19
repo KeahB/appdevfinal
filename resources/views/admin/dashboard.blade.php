@@ -42,20 +42,7 @@
         </div>
     </div>
 
-    
-            <!-- 📊 Monthly Sales Chart -->
-        <div class="bg-white p-6 rounded-lg shadow mb-10">
-            <h2 class="text-xl font-bold mb-4">📊 Monthly Sales</h2>
-            <div>{!! $salesChart->container() !!}</div>
-        </div>
-
-        @push('scripts')
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            {!! $salesChart->script() !!}
-        @endpush
-
-
-        <!-- 🔴 Out of Stock Products Section -->
+     <!-- 🔴 Out of Stock Products Section -->
             @if($outOfStockProducts->count())
                 <div class="mb-10">
                     <h2 class="text-xl font-bold text-red-600 mb-4">🚫 Out of Stock Products</h2>
@@ -71,4 +58,17 @@
                     </div>
                 </div>
             @endif
+            <!-- 📊 Monthly Sales Chart -->
+        <div class="bg-white p-6 rounded-lg shadow mb-10">
+            <h2 class="text-xl font-bold mb-4">📊 Monthly Sales</h2>
+            <div>{!! $salesChart->container() !!}</div>
+        </div>
+
+        @push('scripts')
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            {!! $salesChart->script() !!}
+        @endpush
+
+
+       
 @endsection
