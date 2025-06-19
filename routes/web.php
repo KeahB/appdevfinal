@@ -28,15 +28,32 @@ Route::get('/', function () {
 })->name('home.index');
 
 // ✅ Admin-only route
-Route::middleware(['auth', IsAdmin::class])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('/product-suppliers', [ProductSuppliersController::class, 'prodSupply'])->name('prodSupply.supp');
     Route::get('/product-categories', [ProductCategoryController::class, 'prodCategory'])->name('product-categories.category');
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/products', [ProductsController::class, 'index'])->name('products.index');
+    Route::post('/admin/products', [ProductsController::class, 'store'])->name('products.store');
+    Route::put('/admin/products/{product}', [ProductsController::class, 'update'])->name('products.update');
+    Route::delete('/admin/products/{product}', [ProductsController::class, 'destroy'])->name('products.destroy');
+    Route::get('/admin/orders', [OrderController::class, 'adminViewOrders'])->name('admin.orders');
+    Route::put('/admin/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
+
+    Route::get('/products', [ProductsController::class, 'index'])->name('admin.products');
+    Route::put('/admin/notifications/{id}/read', function ($id) {
+        $notification = Auth::user()->notifications()->findOrFail($id);
+        $notification->markAsRead();
+        return back();
+    })->name('notifications.markAsRead');
 });
 
 // ✅ User-only route
-Route::middleware(['auth', IsUser::class])->group(function () {
+    Route::middleware(['auth', IsUser::class])->group(function () {
     Route::get('/products', [UserController::class, 'orderPage'])->name('user.products');
-    Route::post('/place-order', [UserController::class, 'placeOrder'])->name('orders.place');
-    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::post('/orders/place', [OrderController::class, 'placeOrder'])->name('orders.place');
+    Route::get('/user/orders', [OrderController::class, 'index'])->name('orders.index');
+
+
+    // Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 });

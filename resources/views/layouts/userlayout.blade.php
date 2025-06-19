@@ -9,6 +9,12 @@
     
 </head>
 <body class="min-h-screen bg-gray-100">
+@php
+    use Illuminate\Support\Facades\Auth;
+    $user = Auth::user();
+    $unreadNotifications = $user->unreadNotifications;
+    $notificationCount = $unreadNotifications->count();
+@endphp
 
 <div class="drawer lg:drawer-open">
     <input id="sidebar-toggle" type="checkbox" class="drawer-toggle" />
@@ -32,22 +38,24 @@
                 <span class="text-xl font-semibold">@yield('title', '')</span>
             </div>
             <!-- Right icons -->
-            <div class="flex-none gap-2">
-                <input type="text" placeholder="Search" class="input input-bordered input-sm w-36" />
+            <div class="flex-none flex items-center gap-4">
+                <span class="font-medium text-gray-700">👤 {{ $user->name ?? 'Admin' }}</span>
                 <div class="dropdown dropdown-end">
                     <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                         <div class="w-10 rounded-full">
-                            <img src="https://i.pravatar.cc/100" alt="Profile" />
+                            <img src="https://i.pravatar.cc/100?u={{ $user->id }}" alt="Profile" />
                         </div>
                     </div>
                     <ul tabindex="0"
                         class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
                         <li><a>Profile</a></li>
                         <li>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="w-full text-left">Logout</button>
-                            </form>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="w-full text-left hover:text-red-600">
+                                Logout
+                            </button>
+                             </form>
                         </li>
                     </ul>
                 </div>
@@ -74,15 +82,23 @@
             
                 
                 <li>
-                     <a href="" class="block px-4 py-2 rounded hover:bg-gray-200">
+                     <a href="{{ route('home.index') }}" class="block px-4 py-2 rounded hover:bg-gray-200">
                 🛍 Products
                      </a>
                 </li>
+                @php
+                    $orderCount = auth()->user()->orders()->where('status', 'pending')->count();
+                @endphp
+
                 <li>
-                    <a href="" class="block px-4 py-2 rounded hover:bg-gray-200">
-                📦 View Orders
-                      </a>
+                    <a href="{{ route('orders.index') }}" class="px-4 py-2 rounded hover:bg-gray-200 flex justify-between items-center">
+                  📦 View Orders
+                     @if($orderCount > 0)
+                     <span class="badge badge-sm badge-primary">{{ $orderCount }}</span>
+                  @endif
+                     </a>
                 </li>
+
             </ul>
         </aside>
     </div>

@@ -1,46 +1,74 @@
 @extends('layouts.app')
 
-@section('title', 'Admin Dashboard')
+@section('title', '')
 
 @section('content')
-<div class="p-4 bg-white rounded shadow">
-    <h1 class="text-2xl font-bold mb-4">Welcome, Admin!</h1>
-    <p class="text-gray-600">You are now viewing the admin dashboard.</p>
-</div>
-<div class="flex justify-between items-center mb-4">
-        <h1 class="text-2xl font-bold">Products</h1>
-        <a href="#add_product_modal" class="btn btn-primary">Add New Product</a>
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold mb-2">Welcome, Admin!</h1>
     </div>
-            
-    <div class="overflow-x-auto bg-white shadow rounded-lg">
-        <table class="table w-full">
-            <thead class="bg-gray-100">
-                <tr>
-                    <th></th>
-                    <th>Image</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th class="text-center">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($products as $product)
-                <tr>
-                    <td><input type="checkbox" class="checkbox" /></td>
-                    <td><img src="{{ asset('images/' . $product->image) }}" class="w-12 h-12 object-cover rounded" alt="{{ $product->name }}"></td>
-                    <td>{{ $product->name }}</td>
-                    <td>₱{{ number_format($product->price, 2) }}</td>
-                    <td>
-                        <span class="badge badge-info text-white">{{ $product->quantity }}</span>
-                    </td>
-                    <td class="text-center space-x-2">
-                        <a href="#" class="text-green-600 hover:underline">Edit</a>
-                        <a href="#" class="text-red-600 hover:underline">Delete</a>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+
+    <!-- Dashboard Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+        <!-- View Orders Card -->
+        <a href="{{ route('admin.orders') }}" class="card bg-base-100 shadow-xl transition transform hover:scale-105 hover:shadow-2xl cursor-pointer">
+            <div class="card-body text-center items-center">
+                <div class="text-5xl">📦</div>
+                <h2 class="card-title text-lg mt-2 flex items-center justify-center gap-2">
+                    View Orders
+                    <span class="badge badge-warning">{{ $ordersCount }}</span>
+                </h2>
+                <p class="text-sm text-gray-500">Pending order{{ $ordersCount === 1 ? '' : 's' }}</p>
+            </div>
+        </a>
+
+        <!-- Total Sales Card -->
+        <div class="card bg-base-100 shadow-xl text-center p-4">
+            <div class="text-5xl">📈</div>
+            <h2 class="text-lg mt-2 flex items-center justify-center gap-2">
+                Total Sales
+                <span class="badge badge-success">{{ $salesCount }}</span>
+            </h2>
+            <p class="text-sm text-gray-500">Number of accepted orders</p>
+        </div>
+
+        <!-- Total Revenue Card -->
+        <div class="card bg-base-100 shadow-xl text-center p-4">
+            <div class="text-5xl">💰</div>
+            <h2 class="text-lg mt-2 flex items-center justify-center gap-2">
+                Total Revenue
+                <span class="badge badge-info">₱{{ number_format($totalRevenue, 2) }}</span>
+            </h2>
+            <p class="text-sm text-gray-500">From accepted orders</p>
+        </div>
     </div>
+
+    
+            <!-- 📊 Monthly Sales Chart -->
+        <div class="bg-white p-6 rounded-lg shadow mb-10">
+            <h2 class="text-xl font-bold mb-4">📊 Monthly Sales</h2>
+            <div>{!! $salesChart->container() !!}</div>
+        </div>
+
+        @push('scripts')
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            {!! $salesChart->script() !!}
+        @endpush
+
+
+        <!-- 🔴 Out of Stock Products Section -->
+            @if($outOfStockProducts->count())
+                <div class="mb-10">
+                    <h2 class="text-xl font-bold text-red-600 mb-4">🚫 Out of Stock Products</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        @foreach($outOfStockProducts as $product)
+                            <div class="border border-red-400 bg-red-50 p-4 rounded-lg shadow">
+                                <h3 class="text-lg font-semibold">{{ $product->name }}</h3>
+                                <p class="text-sm text-gray-700">Price: ₱{{ number_format($product->price, 2) }}</p>
+                                <p class="text-sm text-gray-700">Supplier: {{ $product->supplier->name ?? 'N/A' }}</p>
+                                <span class="badge badge-error mt-2">Out of Stock</span>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
 @endsection
