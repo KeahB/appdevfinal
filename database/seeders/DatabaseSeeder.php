@@ -3,13 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\ProductCategory;
-use App\Models\Products;
 use App\Models\ProductSuppliers;
 use App\Models\User;
-use Database\Factories\ProductCategoryFactory;
-use Database\Factories\ProductFactory;
-use Database\Factories\ProductSupplierFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,17 +15,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::create([
+        'name' => 'Admin User',
+        'email' => 'admin@example.com',
+        'password' => bcrypt('password'),
+        'role' => 'admin',
+        ]);
 
-        // User::factory()->create([
-        //     'name' => 'janbai',
-        //     'email' => 'janbai@gmail.com',
-        // ]);
-        //  ProductCategory::factory(5)->create();
-        // ProductSuppliers::factory(3)->create();
-        // Products::factory(50)->create();
-
-        
+        User::create([
+        'name' => 'Regular User',
+        'email' => 'user@example.com',
+        'password' => bcrypt('password'),
+        'role' => 'user',
+        ]);
 
         $this->call([
 
@@ -38,9 +36,5 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
 
         ]);
-        // \App\Models\ProductCategory::factory(5)->create();
-        // \App\Models\ProductSuppliers::factory(3)->create();
-        \App\Models\Products::factory(50)->create();
-
     }
 }
